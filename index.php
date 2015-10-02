@@ -3,7 +3,7 @@ $commands=array("ability","addexp","addevil","adddelay","cast","check","checkabi
 ?>
 <form name=build method=post action=''>
 <table border=3>
-<tr><td>Command</td><td>Type</td><td>Times</td></tr>
+<tr><td>Command Type</td><td>Comand Value</td><td>Times</td></tr>
 <? buildln("1",$commands); ?>
 <? buildln("2",$commands); ?>
 <? buildln("3",$commands); ?>
@@ -40,10 +40,10 @@ function buildln($num,$commands){
 	$cnum="num".$num;
 	$ccommand="command".$num;
 	$ctimes="times".$num;
-	echo "<tr><td><input type=text name='".$cnum."' value='' size=7></td>";
-	echo "<td><select name='".$ccommand."'>";
+	echo "<tr><td><select name='".$ccommand."'>";
 		opt($commands);
  	echo "</select></td>";
+	echo "<td><center><input type=text name='".$cnum."' value='' size=9></center></td>";
 	echo "<td><input type=text name='".$ctimes."' value='1' size=3></td></tr>";
 }
 function builder($cnum){
