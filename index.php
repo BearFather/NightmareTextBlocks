@@ -2,6 +2,7 @@
 <head>
 <style>
 body{
+	background-color:black;
 	margin-top:30px;
 	margin-left:30px;
 }
@@ -16,7 +17,7 @@ table, th, td, #ip{
 }
 </style>
 </head>
-<body  style="background-color:black">
+<body>
 <?php
 $commands=array("ability","addexp","addevil","adddelay","cast","check","checkability","checkitem","checkskill","checkspell","class","clear","clearitem","evilaligned","failitem","failroomitem","flag","giveability","givecoins","giveitem","goodaligned","learnspell","maxlevel","message","minlevel","needmonster","nomonsters","price","race","random","remoteaction","removeability","roomitem","roomtext","summon","takeitem","teleport","testability","testskill","test_tournament","text");
 ?>
@@ -48,10 +49,13 @@ if (isset($_POST['build'])){
 	echo "</textarea>";
 }
 
-function opt($cmds){
+function opt($cmds,$sel){
 	foreach ($cmds as $value) {
 	        $value=stripcslashes($value);
-	        echo "<option value='$value'>".$value."</option>";
+	        $line="<option value='$value'";
+		if ($value == $sel){$line=$line." selected ";}
+		$line=$line.">".$value."</option>";
+		echo $line;
 	}
 
 }
@@ -59,19 +63,32 @@ function buildln($num,$commands){
 	$cnum="num".$num;
 	$ccommand="command".$num;
 	$ctimes="times".$num;
-	echo "<tr><td><select name='".$ccommand."'  id='ip' >";
-		opt($commands);
+	$nvalue="";
+	$nvalue2="";
+	$tvalue=1;
+	$ovalue="ability";
+	if (isset($_POST['build'])){
+		$nvalue=$_POST[$cnum];
+		$nvalue2=$_POST["2".$cnum];
+		if (is_numeric($_POST[$ctimes])){$tvalue=$_POST[$ctimes];}
+		$ovalue=$_POST["command".$num];
+	}
+	echo "<tr><td><select name='".$ccommand."'  id='ip'>";
+		opt($commands,$ovalue);
  	echo "</select></td>";
-	echo "<td><center><input id='ip' type=text name='".$cnum."' value='' size=3><input  id='ip' type=text name='2".$cnum."' value='' size=3></center></td>";
-	echo "<td><input  id='ip' type=text name='".$ctimes."' value='1' size=3></td></tr>";
+	echo "<td><center><input id='ip' type=text name='".$cnum."' value='".$nvalue."' size=3><input  id='ip' type=text name='2".$cnum."' value='".$nvalue2."' size=3></center></td>";
+	echo "<td><input  id='ip' type=text name='".$ctimes."' value='".$tvalue."' size=3></td></tr>";
 }
 function builder($cnum){
 	$t="times".$cnum;
 	$cc="command".$cnum;
 	$n="num".$cnum;
 	$n2="2num".$cnum;
+	$tc=$_POST[$t];
+	if (!is_numeric($_POST[$t])){$tc=1;}
+
 	$c=0;
-	while ($_POST[$t]>$c){
+	while ($tc>$c){
 		$line=$_POST[$cc]." ".$_POST[$n];
 		if (strlen($_POST[$n2])>0){$line=$line." ".$_POST[$n2];}
 		echo $line.":";
