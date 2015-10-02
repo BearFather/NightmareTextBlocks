@@ -23,7 +23,7 @@ $commands=array("ability","addexp","addevil","adddelay","cast","check","checkabi
 ?>
 <form name=build method=post action=''>
 <table>
-<tr><td>Command Type</td><td>Comand Value</td><td>Times</font></td></tr>
+<tr><td>Command Type</td><td>Comand Value</td><td>Times</td></tr>
 <? buildln("1",$commands); ?>
 <? buildln("2",$commands); ?>
 <? buildln("3",$commands); ?>
@@ -68,9 +68,9 @@ function buildln($num,$commands){
 	$tvalue=1;
 	$ovalue="ability";
 	if (isset($_POST['build'])){
-		$nvalue=$_POST[$cnum];
-		$nvalue2=$_POST["2".$cnum];
-		if (is_numeric($_POST[$ctimes])){$tvalue=$_POST[$ctimes];}
+		$nvalue=trim($_POST[$cnum]);
+		$nvalue2=trim($_POST["2".$cnum]);
+		if (is_numeric(trim($_POST[$ctimes]))){$tvalue=trim($_POST[$ctimes]);}
 		$ovalue=$_POST["command".$num];
 	}
 	echo "<tr><td><select name='".$ccommand."'  id='ip'>";
@@ -84,13 +84,13 @@ function builder($cnum){
 	$cc="command".$cnum;
 	$n="num".$cnum;
 	$n2="2num".$cnum;
-	$tc=$_POST[$t];
-	if (!is_numeric($_POST[$t])){$tc=1;}
+	$tc=trim($_POST[$t]);
+	if (!is_numeric(trim($_POST[$t]))){$tc=1;}
 
 	$c=0;
 	while ($tc>$c){
-		$line=$_POST[$cc]." ".$_POST[$n];
-		if (strlen($_POST[$n2])>0){$line=$line." ".$_POST[$n2];}
+		$line=$_POST[$cc]." ".trim($_POST[$n]);
+		if (strlen($_POST[$n2])>0){$line=$line." ".trim($_POST[$n2]);}
 		echo $line.":";
 		$c++;
 	}
