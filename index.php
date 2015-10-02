@@ -1,9 +1,28 @@
+<html>
+<head>
+<style>
+body{
+	margin-top:30px;
+	margin-left:30px;
+}
+table, th, td, #ip{
+	border: 1px inset #006666;
+	background-color: black;
+	color:#00cccc;
+}
+#bt{
+	color:#006666;
+	margin-left:118px;
+}
+</style>
+</head>
+<body  style="background-color:black">
 <?php
 $commands=array("ability","addexp","addevil","adddelay","cast","check","checkability","checkitem","checkskill","checkspell","class","clear","clearitem","evilaligned","failitem","failroomitem","flag","giveability","givecoins","giveitem","goodaligned","learnspell","maxlevel","message","minlevel","needmonster","nomonsters","price","race","random","remoteaction","removeability","roomitem","roomtext","summon","takeitem","teleport","testability","testskill","test_tournament","text");
 ?>
 <form name=build method=post action=''>
-<table border=3>
-<tr><td>Command Type</td><td>Comand Value</td><td>Times</td></tr>
+<table>
+<tr><td>Command Type</td><td>Comand Value</td><td>Times</font></td></tr>
 <? buildln("1",$commands); ?>
 <? buildln("2",$commands); ?>
 <? buildln("3",$commands); ?>
@@ -13,11 +32,11 @@ $commands=array("ability","addexp","addevil","adddelay","cast","check","checkabi
 <? buildln("7",$commands); ?>
 <? buildln("8",$commands); ?>
 </table>
-<p><input type=submit name='build' value='build'>
+<p><input id='bt' type=submit name='build' value='build'>
 </form>
 <?
 if (isset($_POST['build'])){
-	echo "<textarea name='builder' rows='10' cols='80'>";
+	echo "<textarea id='ip' name='builder' rows='10' cols='80'>";
 	builder("1");
 	if (strlen($_POST['num2'])>0){builder("2");}
 	if (strlen($_POST['num3'])>0){builder("3");}
@@ -40,20 +59,25 @@ function buildln($num,$commands){
 	$cnum="num".$num;
 	$ccommand="command".$num;
 	$ctimes="times".$num;
-	echo "<tr><td><select name='".$ccommand."'>";
+	echo "<tr><td><select name='".$ccommand."'  id='ip' >";
 		opt($commands);
  	echo "</select></td>";
-	echo "<td><center><input type=text name='".$cnum."' value='' size=9></center></td>";
-	echo "<td><input type=text name='".$ctimes."' value='1' size=3></td></tr>";
+	echo "<td><center><input id='ip' type=text name='".$cnum."' value='' size=3><input  id='ip' type=text name='2".$cnum."' value='' size=3></center></td>";
+	echo "<td><input  id='ip' type=text name='".$ctimes."' value='1' size=3></td></tr>";
 }
 function builder($cnum){
 	$t="times".$cnum;
 	$cc="command".$cnum;
 	$n="num".$cnum;
+	$n2="2num".$cnum;
 	$c=0;
 	while ($_POST[$t]>$c){
-		echo $_POST[$cc]." ".$_POST[$n].":";
+		$line=$_POST[$cc]." ".$_POST[$n];
+		if (strlen($_POST[$n2])>0){$line=$line." ".$_POST[$n2];}
+		echo $line.":";
 		$c++;
 	}
 }
 ?>
+</body>
+</html>
