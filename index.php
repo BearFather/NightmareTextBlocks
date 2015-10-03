@@ -1,6 +1,6 @@
 <html>
 <head>
-<style>
+<style> //Styling
 body{
 	background-color:black;
 	margin-top:30px;
@@ -18,7 +18,7 @@ table, th, td, #ip{
 </style>
 </head>
 <body>
-<?php
+<?php //All the commands in the drop down
 $commands=array("ability","addexp","addevil","adddelay","cast","check","checkability","checkitem","checkskill","checkspell","class","clear","clearitem","evilaligned","failitem","failroomitem","flag","giveability","givecoins","giveitem","goodaligned","learnspell","maxlevel","message","minlevel","needmonster","nomonsters","price","race","random","remoteaction","removeability","roomitem","roomtext","summon","takeitem","teleport","testability","testskill","test_tournament","text");
 ?>
 <form name=build method=post action=''>
@@ -49,7 +49,7 @@ if (isset($_POST['build'])){
 	echo "</textarea>";
 }
 
-function opt($cmds,$sel){
+function opt($cmds,$sel){//adding all the different commands to the dropdown
 	foreach ($cmds as $value) {
 	        $value=stripcslashes($value);
 	        $line="<option value='$value'";
@@ -59,7 +59,7 @@ function opt($cmds,$sel){
 	}
 
 }
-function buildln($num,$commands){
+function buildln($num,$commands){// build the text area and dropdown line
 	$cnum="num".$num;
 	$ccommand="command".$num;
 	$ctimes="times".$num;
@@ -67,19 +67,19 @@ function buildln($num,$commands){
 	$nvalue2="";
 	$tvalue=1;
 	$ovalue="ability";
-	if (isset($_POST['build'])){
+	if (isset($_POST['build'])){//loads the string with the previous option
 		$nvalue=trim($_POST[$cnum]);
 		$nvalue2=trim($_POST["2".$cnum]);
 		if (is_numeric(trim($_POST[$ctimes]))){$tvalue=trim($_POST[$ctimes]);}
 		$ovalue=$_POST["command".$num];
 	}
-	echo "<tr><td><select name='".$ccommand."'  id='ip'>";
+	echo "<tr><td><select name='".$ccommand."'  id='ip'>"; //dropdown begin
 		opt($commands,$ovalue);
- 	echo "</select></td>";
-	echo "<td><center><input id='ip' type=text name='".$cnum."' value='".$nvalue."' size=3><input  id='ip' type=text name='2".$cnum."' value='".$nvalue2."' size=3></center></td>";
-	echo "<td><input  id='ip' type=text name='".$ctimes."' value='".$tvalue."' size=3></td></tr>";
+ 	echo "</select></td>";//drop down ends
+	echo "<td><center><input id='ip' type=text name='".$cnum."' value='".$nvalue."' size=3><input  id='ip' type=text name='2".$cnum."' value='".$nvalue2."' size=3></center></td>";//value boxs 1&2
+	echo "<td><input  id='ip' type=text name='".$ctimes."' value='".$tvalue."' size=3></td></tr>";//times box
 }
-function builder($cnum){
+function builder($cnum){//fills in textarea with finish txtblk line
 	$t="times".$cnum;
 	$cc="command".$cnum;
 	$n="num".$cnum;
